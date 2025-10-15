@@ -2,6 +2,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <vector> 
+#include <string>
 
 void printBoard(void);
 
@@ -65,12 +66,22 @@ class Player {
             playerName = n;
         }
 
+        void setPlayerAttributes() {
 
-        void getPlayerAttritbute() {
-            scanf("%s", mark);
-            scanf("%s", playerName);
+            std::cout << "Player Name: ";
+            std::cin >> playerName; 
 
-        };
+            std::cout << "Player Mark: ";
+            std::cin >> mark; 
+        }
+
+        char mark () {
+            return mark;
+        }
+
+        std::string playerName() {
+            return playerName; 
+        }
 
 };
 
@@ -99,16 +110,19 @@ class Game {
 
 int main(void) 
 {
-    printf("Welcome to Tic-Tac-Toe!\n");
 
-    char target[50];
-    printf("Enter target: ");
-    scanf("%49s", target);
+    char mark;
+    std::string playerName;
 
-    printf("You entered: %s\n", target);
+    Player Player1(' ', "");
+    Player Player2(' ', "");
+
+    Player1.setPlayerAttributes();
+    Player2.setPlayerAttributes();
+    
     
 
-    printBoard();
+
     return 0;
 }
 
