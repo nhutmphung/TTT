@@ -17,18 +17,42 @@ void printBoard(void);
 class Board {
     private:
         int row;
+        char cell;
         int column;
-        std::string mark; 
-        std::vector<int> myVector{3,3};
+        char mark; 
+        std::vector<std::vector<char>> board; 
         
 
     public: 
-        int placeMark(int row, int column, char mark){
 
+        Board () {
+            board = std::vector<std:: vector<char>> (3, std::vector<char>(3, ' '));
         }
 
-        void isCellEmpty(int row, int col){
+        void printBoard(void) {
+            for (auto& row : board) {       //basically saying go through all the row in 3x3 vector, and uses auto as identifier since the variable type is a vector
+                std::cout << "{    ,     ,     }";
+                for (char cell : row){      //saying to go through each element and print it out 
+                    std::cout << cell << ' ';
+                }
+                std::cout << "\n"; 
+            }
+        }
 
+        // *TODO have the placeMark update the 3x3 vector and then print out?
+        int placeMark(int row, int column, char mark){
+
+            if (mark == 1) {
+                board[row][column] = mark;
+                printBoard();
+            }
+        }
+
+        // *TODO if cell is NOT empty, don't allow to place, if cell is empty, place
+        void isCellEmpty(int row, int col){
+            if (board[row][col] != ' '){
+                std::cout << "Please pick another spot, spot is currently taken." << std::endl;
+            }
         }
 
 
@@ -39,8 +63,8 @@ class Board {
 
         }
 
+        //*TODO if the checkWin is FALSE and all cells are fill, print out draw
         void checkDraw(void) {
-
             //Check if all the square are filled
 
         }
@@ -75,11 +99,11 @@ class Player {
             std::cin >> mark; 
         }
 
-        char mark () {
+        char getMark () {
             return mark;
         }
 
-        std::string playerName() {
+        std::string getName() {
             return playerName; 
         }
 
@@ -103,13 +127,15 @@ class Game {
         };
 
 };
-
-
-// *TODO Start first by asking player name and mark 
-// *TODO then create the board using a 3x3 array 
+ 
+// *TODO 
 
 int main(void) 
 {
+
+    Board Board;
+
+    Board.printBoard(); 
 
     char mark;
     std::string playerName;
@@ -117,25 +143,5 @@ int main(void)
     Player Player1(' ', "");
     Player Player2(' ', "");
 
-    Player1.setPlayerAttributes();
-    Player2.setPlayerAttributes();
-    
-    
-
-
     return 0;
-}
-
-void printBoard(void) 
-{  
-    printf("\n\n");
-    for (int i = 0; i < 3; i++)
-    {   
-        std::cout << "    | \t | \n";
-        if (i != 2)
-        {
-            std::cout << "--------------";
-            printf("\n");
-        }
-    }
 }
