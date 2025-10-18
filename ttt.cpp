@@ -28,87 +28,85 @@ class Board {
         Board () {
             board = std::vector<std:: vector<char>> (3, std::vector<char>(3, ' '));
         }
-
         void printBoard(void) {
-            for (auto& row : board) {       //basically saying go through all the row in 3x3 vector, and uses auto as identifier since the variable type is a vector
-                std::cout << "{    ,     ,     }";
-                for (char cell : row){      //saying to go through each element and print it out 
-                    std::cout << cell << ' ';
+            std::cout << "\n";
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    std::cout << " " << board[i][j];
+                    if (j < 2) std::cout << " |";
                 }
-                std::cout << "\n"; 
+                std::cout << "\n";
+                if (i < 2) std::cout << "---+---+---\n";
             }
+            std::cout << "\n";
         }
 
-        // *TODO have the placeMark update the 3x3 vector and then print out?
+
+
+
         int placeMark(int row, int column, char mark){
 
-            if (mark == 1) {
+            if (board[row][column] == ' ') {
                 board[row][column] = mark;
                 printBoard();
             }
-        }
-
-        // *TODO if cell is NOT empty, don't allow to place, if cell is empty, place
-        void isCellEmpty(int row, int col){
-            if (board[row][col] != ' '){
-                std::cout << "Please pick another spot, spot is currently taken." << std::endl;
+            else {
+                std::cout << "Please put a mark somewhere else";
             }
+            return board[row][column];
         }
-
 
         void checkWin(void) {
+            
+            for(int i = 0; i < 3; i++){     //check if won via x rows
+                if(board[i][0] == 'x' &&  board[i][1] == 'x' && board[i][2] == 'x'){
+                    std::cout << "Congrats, you won!";
+                }
+            }
+            
+            for(int i = 0; i < 3; i++){     //check if won via o rows
+                if(board[i][0] == 'o' && board[i][1] == 'o' && board[i][2] == 'o'){
+                    std::cout << "Congrats, you won!";
+                }
+            }
+            
+            for(int i = 0; i < 3; i++){     //check if won via x columns
+                if(board[0][i] == 'x' &&  board[1][i] == 'x' && board[2][i] == 'x'){
+                    std::cout << "Congrats, you won!";
+                }
+            }
 
+            
+            for(int i = 0; i < 3; i++){     //check if won via o columns
+                if(board[0][i] == 'o' && board[1][i] == 'o' && board[2][i] == 'o'){
+                    std::cout << "Congrats, you won!";
+                }
+            }
 
-            //Check for win condition
+            if (board[0][0] == 'x' && board[1][1] == 'x' && board[2][2] == 'x'){ //checking for win left to right diag for x
+                std::cout << "Congrats, you won!";
+            }
+            if (board[0][0] == 'o' && board[1][1] == 'o' && board[2][2] == 'o'){ //checking for win left to right diag for o
+                std::cout << "Congrats, you won!";
+            }
+            if (board[0][2] == 'x' && board[1][1] == 'x' && board[2][0] == 'x'){ //checking for win right to left diag for x
+                std::cout << "Congrats, you won!";
+            }
 
+            if (board[0][2] == 'o' && board[1][1] == 'o' && board[2][0] == 'o'){//cheecking for win right to left diag for o
+                std::cout << "Congrats, you won!";
+            }
+            
         }
 
         //*TODO if the checkWin is FALSE and all cells are fill, print out draw
         void checkDraw(void) {
-            //Check if all the square are filled
+            //Check if checkWIn is FALSE and vector is filled, print out draw
 
         }
 
 
 };
-
-
-//Player class
-//char mark
-//string name 
-//getMove() ? 
-
-class Player {
-    private:
-        char mark;
-        std::string playerName;
-
-    public:
-    
-        Player(char m, std::string n){      //initilize the player and get what type they are 
-            mark = m;
-            playerName = n;
-        }
-
-        void setPlayerAttributes() {
-
-            std::cout << "Player Name: ";
-            std::cin >> playerName; 
-
-            std::cout << "Player Mark: ";
-            std::cin >> mark; 
-        }
-
-        char getMark () {
-            return mark;
-        }
-
-        std::string getName() {
-            return playerName; 
-        }
-
-};
-
 
 //Game class
 //board board
@@ -118,16 +116,6 @@ class Player {
 //switchturn()
 //playTurn()
 
-class Game {
-    private:
-
-    public:
-        void printBoard(){
-
-        };
-
-};
- 
 // *TODO 
 
 int main(void) 
@@ -135,13 +123,13 @@ int main(void)
 
     Board Board;
 
-    Board.printBoard(); 
 
-    char mark;
-    std::string playerName;
+    Board.placeMark(0, 0, 'x');
+    Board.placeMark(1, 1, 'x');
+    Board.placeMark(2, 0, 'x');
 
-    Player Player1(' ', "");
-    Player Player2(' ', "");
+    Board.checkWin();
+
 
     return 0;
 }
